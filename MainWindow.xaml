@@ -6,7 +6,37 @@
         xmlns:local="clr-namespace:Rekenmachine"
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="600" Background="#FF9EB3C2">
-    <Grid>
-        
+    
+    <Grid x:Name="Buttons" Margin="0,200,0,-3">
+        <!--<Button x:Name="Num7" Content="7" HorizontalAlignment="Left" Margin="88,113,0,0" VerticalAlignment="Top" Width="91" Height="91" FontSize="36"/>-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button x:Name="Num7" Content="7" VerticalAlignment="Top" Height="118" FontSize="62" Grid.Column="0" Margin="5"/>
+        <Button x:Name="Num8" Content="8" VerticalAlignment="Top" Height="118" FontSize="62" Grid.Column="1" Margin="5"/>
+        <Button x:Name="Num9" Content="9" VerticalAlignment="Top" Height="118" FontSize="62" Grid.Column="2" Margin="5"/>
+        <Button x:Name="ButtonDivision" Content="/" VerticalAlignment="Top" Height="118" FontSize="62" Grid.Column="3" Margin="5"/>
+
+        <Button x:Name="Num4" Content="4" VerticalAlignment="Top" Grid.Row="1" Height="118" FontSize="62" Grid.Column="0" Margin="5"/>
+        <Button x:Name="Num5" Content="5" VerticalAlignment="Top" Grid.Row="1" Height="118" FontSize="62" Grid.Column="1" Margin="5"/>
+        <Button x:Name="Num6" Content="6" VerticalAlignment="Top" Grid.Row="1" Height="118" FontSize="62" Grid.Column="2" Margin="5"/>
+        <Button x:Name="ButtonMultiply" Content="*" VerticalAlignment="Top" Grid.Row="1" Height="118" FontSize="62" Grid.Column="3" Margin="5"/>
+
+        <Button x:Name="Num1" Content="1" VerticalAlignment="Top" Grid.Row="2" Height="118" FontSize="62" Grid.Column="0" Margin="5"/>
+        <Button x:Name="Num2" Content="2" VerticalAlignment="Top" Grid.Row="2" Height="118" FontSize="62" Grid.Column="1" Margin="5"/>
+        <Button x:Name="Num3" Content="3" VerticalAlignment="Top" Grid.Row="2" Height="118" FontSize="62" Grid.Column="2" Margin="5"/>
+        <Button x:Name="ButtonSubtraction" Content="-" VerticalAlignment="Top" Grid.Row="2" Height="118" FontSize="62" Grid.Column="3" Margin="5"/>
+
+        <Button x:Name="Num0" Content="0" VerticalAlignment="Top" Grid.Row="3" Height="118" FontSize="62" Grid.Column="1" Margin="5"/>
+        <Button x:Name="ButtonAddition" Content="+" VerticalAlignment="Top" Grid.Row="3" Height="118" FontSize="62" Grid.Column="3" Margin="5"/>
     </Grid>
 </Window>
