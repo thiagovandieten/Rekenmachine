@@ -24,6 +24,7 @@ namespace Rekenmachine
         {
             InitializeComponent();
             bindNumberButtons();
+            bindOperatorButtons();
         }
 
         private void bindNumberButtons()
@@ -40,8 +41,32 @@ namespace Rekenmachine
             Num9.Click += NumButton_Click;
         }
 
+        private void bindOperatorButtons() {
+            ButtonDivision.Click += OperatorButton_Click;
+            ButtonMultiply.Click += OperatorButton_Click;
+            ButtonSubtraction.Click += OperatorButton_Click;
+            ButtonAddition.Click += OperatorButton_Click;
+        }
+
         private void NumButton_Click(object sender, RoutedEventArgs e)
         {
+            Button buttonPressed = (Button)sender;
+            Display.Text += buttonPressed.Content;
+        }
+        private void OperatorButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (!Display.Text.All(Char.IsDigit) || String.IsNullOrWhiteSpace(Display.Text))
+                {
+                    throw new InvalidOperationException("Kan geen uitvoering doen zonder eerst een getal te geven");
+                }
+            }
+            catch (InvalidOperationException error)
+            {
+                MessageBox.Show(error.ToString());
+                return;
+            }
             Button buttonPressed = (Button)sender;
             Display.Text += buttonPressed.Content;
         }
