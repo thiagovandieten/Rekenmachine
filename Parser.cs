@@ -8,17 +8,27 @@ namespace Rekenmachine
 {
     class Parser
     {
+        public const int PLUS = 43;
+        public const int MULTIPLY = 42;
+        public const int MINUS = 45;
+        public const int DIVISION = 47;
+        public String testString { get; set; }
         public void calculate(string notation = "8+3*8-6/(7-1)")
         {
-            convertToPostFix(notation);
+            Queue<char> postFix = convertToPostFix(notation);
+            //TODO: Parse reverse polish notation on postFix
+            while(postFix.Count > 0)
+            {
+                testString += postFix.Dequeue();
+            }
+            System.Diagnostics.Debug.WriteLine(testString);
         }
 
-        private string convertToPostFix(string notation)
+        private Queue<char> convertToPostFix(string notation)
         {
             char[] infix = notation.ToCharArray();
             Queue<char> postfix = new Queue<char>();
             Stack<char> operatorStack = new Stack<char>();
-            char TopOfStack;
             //Implementeer de shunting-yard algoritme
             //Geleerd van Wikipedia en Brilliant: https://brilliant.org/wiki/shunting-yard-algorithm/
             foreach (char token in infix)
@@ -29,23 +39,21 @@ namespace Rekenmachine
                 }
                 else if (charIsOperator(token))
                 {
-                    if (operatorStack.Count > 0)
+                    if (operatorStack.Count > 0 && !charIsOfGreaterPrecedence(token, operatorStack.Peek()))
                     {
-                        TopOfStack = operatorStack.Peek();
-                        if (charIsMultiplicationorDivision(TopOfStack))
-                        {
-                            postfix.Enqueue(operatorStack.Pop());
-                        }
+                        postfix.Enqueue(operatorStack.Pop());
                     }
                     operatorStack.Push(token);
 
                     System.Diagnostics.Debug.WriteLine($"It's a {token.ToString()}");
                 }
             }
-            //System.Diagnostics.Debug.WriteLine(postfix.ToString());
-            //If operatorstack not empty, pop it's last element
-            return "ye";
-
+            //If operatorstack not empty, pop it's remaining elements
+            while(operatorStack.Count > 0)
+            {
+                postfix.Enqueue(operatorStack.Pop());
+            }
+            return postfix;
         }
 
         private bool charIsOperator(char token)
@@ -59,7 +67,7 @@ namespace Rekenmachine
 
         private bool charIsAdditionorSubtraction(char token)
         {
-            if (token == 43 || token == 45)
+            if (token == PLUS || token == MINUS)
             {
                 return true;
             }
@@ -71,7 +79,7 @@ namespace Rekenmachine
 
         private bool charIsMultiplicationorDivision(char token)
         {
-            if (token == 42 || token == 47)
+            if (token == MULTIPLY || token == DIVISION)
             {
                 return true;
             }
@@ -79,6 +87,15 @@ namespace Rekenmachine
             {
                 return false;
             }
+        }
+
+        private bool charIsOfGreaterPrecedence(char firstOp, char secondOp)
+        {
+            if(charIsMultiplicationorDivision(firstOp) && charIsAdditionorSubtraction(secondOp))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
