@@ -25,8 +25,8 @@ namespace Rekenmachine
             InitializeComponent();
             bindNumberButtons();
             bindOperatorButtons();
-            Parser parser = new Parser();
-            parser.calculate();
+            //Parser parser = new Parser();
+            //parser.calculate();
         }
 
         private void bindNumberButtons()
@@ -59,6 +59,7 @@ namespace Rekenmachine
         {
             try
             {
+                //TODO: Momenteel throwt tie als er al een operator in de display zit. 
                 if (!Display.Text.All(Char.IsDigit) || String.IsNullOrWhiteSpace(Display.Text))
                 {
                     throw new InvalidOperationException("Kan geen uitvoering doen zonder eerst een getal te geven");
@@ -71,6 +72,12 @@ namespace Rekenmachine
             }
             Button buttonPressed = (Button)sender;
             Display.Text += buttonPressed.Content;
+        }
+
+        private void ButtonEquals_Click(object sender, RoutedEventArgs e)
+        {
+            Parser parser = new Parser();
+            parser.calculate(Display.Text);
         }
     }
 }
