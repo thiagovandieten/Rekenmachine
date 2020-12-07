@@ -25,6 +25,8 @@ namespace Rekenmachine
             InitializeComponent();
             bindNumberButtons();
             bindOperatorButtons();
+            Parser parser = new Parser();
+            parser.calculate();
         }
 
         private void bindNumberButtons()
