@@ -60,7 +60,7 @@ namespace Rekenmachine
             try
             {
                 //TODO: Momenteel throwt tie als er al een operator in de display zit. 
-                if (!Display.Text.All(Char.IsDigit) || String.IsNullOrWhiteSpace(Display.Text))
+                if (!char.IsDigit(Display.Text.Last()) || String.IsNullOrWhiteSpace(Display.Text))
                 {
                     throw new InvalidOperationException("Kan geen uitvoering doen zonder eerst een getal te geven");
                 }
