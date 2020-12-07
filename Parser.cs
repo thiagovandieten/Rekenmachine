@@ -27,8 +27,26 @@ namespace Rekenmachine
                 {
                     postfix.Enqueue(token);
                 }
-                else if(isOperator(token)) 
+                else if(charIsOperator(token)) 
                 {
+                    try
+                    {
+                        char TopOfStack = operatorStack.Peek();
+                        if (charIsMultiplicationorDivision(TopOfStack))
+                        {
+                            postfix.Enqueue(operatorStack.Pop());
+                        }
+                    }
+                    //operatorStack was leeg.
+                    catch (InvalidOperationException e)
+                    {
+                        
+                    } 
+                    finally
+                    {
+                        operatorStack.Push(token);
+                    }
+                    
                     System.Diagnostics.Debug.WriteLine($"It's a {token.ToString()}");
                 }
             }
@@ -37,13 +55,37 @@ namespace Rekenmachine
 
         }
 
-        private bool isOperator(char token)
+        private bool charIsOperator(char token)
         {
-            //Vergelijk char met de ASCII waarde van de operaties +-*/ https://cs.smu.ca/~porter/csc/ref/asciifull.gif
-            if (token == 42 || token == 43 || token == 45 || token == 47)
+            //Vergelijk char met de ASCII waarde van de operaties *+-/ https://cs.smu.ca/~porter/csc/ref/asciifull.gif
+            if (charIsAdditionorSubtraction(token) || charIsMultiplicationorDivision(token))
                 return true;
             else
                 return false;
+        }
+
+        private bool charIsAdditionorSubtraction(char token)
+        {
+            if(token == 43 || token == 45)
+            {
+                return true;
+            } 
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool charIsMultiplicationorDivision(char token)
+        {
+            if(token == 42 || token == 47)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
