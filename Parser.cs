@@ -18,39 +18,32 @@ namespace Rekenmachine
             char[] infix = notation.ToCharArray();
             Queue<char> postfix = new Queue<char>();
             Stack<char> operatorStack = new Stack<char>();
-
+            char TopOfStack;
             //Implementeer de shunting-yard algoritme
             //Geleerd van Wikipedia en Brilliant: https://brilliant.org/wiki/shunting-yard-algorithm/
             foreach (char token in infix)
             {
-                if(char.IsDigit(token))
+                if (char.IsDigit(token))
                 {
                     postfix.Enqueue(token);
                 }
-                else if(charIsOperator(token)) 
+                else if (charIsOperator(token))
                 {
-                    try
+                    if (operatorStack.Count > 0)
                     {
-                        char TopOfStack = operatorStack.Peek();
+                        TopOfStack = operatorStack.Peek();
                         if (charIsMultiplicationorDivision(TopOfStack))
                         {
                             postfix.Enqueue(operatorStack.Pop());
                         }
                     }
-                    //operatorStack was leeg.
-                    catch (InvalidOperationException e)
-                    {
-                        
-                    } 
-                    finally
-                    {
-                        operatorStack.Push(token);
-                    }
-                    
+                    operatorStack.Push(token);
+
                     System.Diagnostics.Debug.WriteLine($"It's a {token.ToString()}");
                 }
             }
             //System.Diagnostics.Debug.WriteLine(postfix.ToString());
+            //If operatorstack not empty, pop it's last element
             return "ye";
 
         }
@@ -66,10 +59,10 @@ namespace Rekenmachine
 
         private bool charIsAdditionorSubtraction(char token)
         {
-            if(token == 43 || token == 45)
+            if (token == 43 || token == 45)
             {
                 return true;
-            } 
+            }
             else
             {
                 return false;
@@ -78,7 +71,7 @@ namespace Rekenmachine
 
         private bool charIsMultiplicationorDivision(char token)
         {
-            if(token == 42 || token == 47)
+            if (token == 42 || token == 47)
             {
                 return true;
             }
