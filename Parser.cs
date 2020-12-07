@@ -39,8 +39,8 @@ namespace Rekenmachine
 
         private bool isOperator(char token)
         {
-            String tokenString = token.ToString();
-            if (tokenString.Equals("+") || tokenString.Equals("-") || tokenString.Equals("*") || tokenString.Equals("/"))
+            //Vergelijk char met de ASCII waarde van de operaties +-*/ https://cs.smu.ca/~porter/csc/ref/asciifull.gif
+            if (token == 42 || token == 43 || token == 45 || token == 47)
                 return true;
             else
                 return false;
