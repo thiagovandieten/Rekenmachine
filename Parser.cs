@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace Rekenmachine
 {
     class Parser
     {
-        public const int PLUS = 43;
-        public const int MULTIPLY = 42;
-        public const int MINUS = 45;
-        public const int DIVISION = 47;
+        public static readonly string[] OPERATORS = { "+", "-", "*", "/" };
+
         public String testString { get; set; }
         public void calculate(string notation = "8+3*8-6/(7-1)")
         {
-            Queue<char> postFix = convertToPostFix(notation);
+            Queue<string> postFix = convertToPostFix(notation);
             //TODO: Parse reverse polish notation on postFix
             while(postFix.Count > 0)
             {
@@ -24,62 +23,55 @@ namespace Rekenmachine
             System.Diagnostics.Debug.WriteLine(testString);
         }
 
-        private Queue<char> convertToPostFix(string notation)
+        private Queue<string> convertToPostFix(string notation)
         {
-            char[] infix = notation.ToCharArray();
-            Queue<char> postfix = new Queue<char>();
-            Stack<char> operatorStack = new Stack<char>();
+            //char[] infix = notation.ToCharArray();
+            String[] infix = Regex.Split(notation, @"([+\-*\/])");
+
+            Queue<string> postfix = new Queue<string>();
+            Stack<string> operatorStack = new Stack<string>();
             //Implementeer de shunting-yard algoritme
             //Geleerd van Wikipedia en Brilliant: https://brilliant.org/wiki/shunting-yard-algorithm/
-            foreach (char token in infix)
+            foreach (String token in infix)
             {
-                if (char.IsDigit(token))
+                if (stringIsOperator(token))
                 {
-                    postfix.Enqueue(token);
-                }
-                else if (charIsOperator(token))
-                {
-                    if (operatorStack.Count > 0 && !charIsOfGreaterPrecedence(token, operatorStack.Peek()))
+                    if (operatorStack.Count > 0 && !tokenIsOfGreaterPrecedence(token, operatorStack.Peek()))
                     {
-                        postfix.Enqueue(operatorStack.Pop());
+                        postfix.Enqueue(operatorStack.Pop() + " ");
                     }
                     operatorStack.Push(token);
 
-                    System.Diagnostics.Debug.WriteLine($"It's a {token.ToString()}");
+                    System.Diagnostics.Debug.WriteLine($"It's a {token}");
+                }
+                else if (int.TryParse(token, out int devnull))
+                {
+                    postfix.Enqueue(token + " ");
                 }
             }
             //If operatorstack not empty, pop it's remaining elements
             while(operatorStack.Count > 0)
             {
-                postfix.Enqueue(operatorStack.Pop());
+                postfix.Enqueue(operatorStack.Pop() + " ");
             }
             return postfix;
         }
 
-        private bool charIsOperator(char token)
+        private bool stringIsOperator(string token)
         {
             //Vergelijk char met de ASCII waarde van de operaties *+-/ https://cs.smu.ca/~porter/csc/ref/asciifull.gif
-            if (charIsAdditionorSubtraction(token) || charIsMultiplicationorDivision(token))
+            if (OPERATORS.Contains(token))
                 return true;
             else
                 return false;
         }
 
-        private bool charIsAdditionorSubtraction(char token)
+        private bool tokenIsAdditionorSubtraction(string token)
         {
-            if (token == PLUS || token == MINUS)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+            string[] plusminus = new string[2];
+            Array.Copy(OPERATORS, plusminus, 2);
 
-        private bool charIsMultiplicationorDivision(char token)
-        {
-            if (token == MULTIPLY || token == DIVISION)
+            if (plusminus.Contains(token)) 
             {
                 return true;
             }
@@ -89,9 +81,24 @@ namespace Rekenmachine
             }
         }
 
-        private bool charIsOfGreaterPrecedence(char firstOp, char secondOp)
+        private bool tokenIsMultiplicationorDivision(string token)
         {
-            if(charIsMultiplicationorDivision(firstOp) && charIsAdditionorSubtraction(secondOp))
+            string[] multiplydivision = new string[2];
+            Array.Copy(OPERATORS, 2, multiplydivision, 0, 2);
+            
+            if (multiplydivision.Contains(token))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool tokenIsOfGreaterPrecedence(string firstOp, string secondOp)
+        {
+            if(tokenIsMultiplicationorDivision(firstOp) && tokenIsAdditionorSubtraction(secondOp))
             {
                 return true;
             }
