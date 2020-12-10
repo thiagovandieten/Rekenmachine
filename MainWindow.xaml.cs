@@ -79,5 +79,10 @@ namespace Rekenmachine
             Parser parser = new Parser();
             parser.calculate(Display.Text);
         }
+
+        private void ButtonBackspace_Click(object sender, RoutedEventArgs e)
+        {
+            Display.Text = Display.Text.Remove(Display.Text.Count() - 1);
+        }
     }
 }

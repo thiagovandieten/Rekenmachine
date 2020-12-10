@@ -40,6 +40,7 @@
         <Button x:Name="Num3" Content="3" VerticalAlignment="Top" Grid.Row="3" Height="100" FontSize="62" Grid.Column="2" Margin="5"/>
         <Button x:Name="ButtonSubtraction" Content="-" VerticalAlignment="Top" Grid.Row="3" Height="100" FontSize="62" Grid.Column="3" Margin="5"/>
 
+        <Button x:Name="ButtonBackspace" Content="CE" VerticalAlignment="Top" Grid.Row="4" Height="100" FontSize="62" Grid.Column="0" Margin="5" Click="ButtonBackspace_Click"/>
         <Button x:Name="Num0" Content="0" VerticalAlignment="Top" Grid.Row="4" Height="100" FontSize="62" Grid.Column="1" Margin="5"/>
         <Button x:Name="ButtonEquals" Content="=" VerticalAlignment="Top" Grid.Row="4" Height="100" FontSize="62" Grid.Column="2" Margin="5" Click="ButtonEquals_Click"/>
         <Button x:Name="ButtonAddition" Content="+" VerticalAlignment="Top" Grid.Row="4" Height="100" FontSize="62" Grid.Column="3" Margin="5"/>
