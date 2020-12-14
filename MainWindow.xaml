@@ -23,7 +23,7 @@
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBox x:Name="Display" Grid.ColumnSpan="4" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="583" FontSize="48" Margin="5,0"/>
+        <TextBox x:Name="Display" Grid.ColumnSpan="4" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="583" FontSize="48" Margin="5,0" IsReadOnly="True"/>
 
         <Button x:Name="Num7" Content="7" VerticalAlignment="Top" Grid.Row="1" Height="100" FontSize="62" Grid.Column="0" Margin="5"/>
         <Button x:Name="Num8" Content="8" VerticalAlignment="Top" Grid.Row="1" Height="100" FontSize="62" Grid.Column="1" Margin="5"/>
