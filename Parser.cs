@@ -12,15 +12,16 @@ namespace Rekenmachine
         public static readonly string[] OPERATORS = { "+", "-", "*", "/" };
 
         public String testString { get; set; }
-        public void calculate(string notation = "8+3*8-6/(7-1)")
+        public int calculate(string notation)
         {
             Queue<string> postFix = convertToPostFix(notation);
-            //TODO: Parse reverse polish notation on postFix
-            while(postFix.Count > 0)
-            {
-                testString += postFix.Dequeue();
-            }
-            System.Diagnostics.Debug.WriteLine(testString);
+            return parsePostFix(postFix);
+
+            //while (postFix.Count > 0)
+            //{
+            //    testString += postFix.Dequeue();
+            //}
+            //System.Diagnostics.Debug.WriteLine(testString);
         }
 
         private Queue<string> convertToPostFix(string notation)
@@ -38,7 +39,7 @@ namespace Rekenmachine
                 {
                     if (operatorStack.Count > 0 && !tokenIsOfGreaterPrecedence(token, operatorStack.Peek()))
                     {
-                        postfix.Enqueue(operatorStack.Pop() + " ");
+                        postfix.Enqueue(operatorStack.Pop());
                     }
                     operatorStack.Push(token);
 
@@ -46,15 +47,58 @@ namespace Rekenmachine
                 }
                 else if (int.TryParse(token, out int devnull))
                 {
-                    postfix.Enqueue(token + " ");
+                    postfix.Enqueue(token);
                 }
             }
             //If operatorstack not empty, pop it's remaining elements
-            while(operatorStack.Count > 0)
+            while (operatorStack.Count > 0)
             {
-                postfix.Enqueue(operatorStack.Pop() + " ");
+                postfix.Enqueue(operatorStack.Pop());
             }
             return postfix;
+        }
+
+        private int parsePostFix(Queue<string> postFix)
+        {
+            Stack<int> stack = new Stack<int>();
+            int number = 0;
+            while (postFix.Count > 0)
+            {
+                string token = postFix.Dequeue();
+
+                if (int.TryParse(token, out number))
+                {
+                    stack.Push(number);
+                }
+                else
+                {
+                    switch (token)
+                    {
+                        case "*":
+                            stack.Push(stack.Pop() * stack.Pop());
+                            break;
+
+                        case "/":
+                            number = stack.Pop();
+                            stack.Push(stack.Pop() / number);
+                            break;
+
+                        case "+":
+                            stack.Push(stack.Pop() + stack.Pop());
+                            break;
+
+                        case "-":
+                            number = stack.Pop();
+                            stack.Push(stack.Pop() - number);
+                            break;
+
+                        default:
+                            // Won't be caught anywhere. Not planning to unless this calculator app needs to have more functions.
+                            throw new ArgumentOutOfRangeException("postFix", "Contains a invalid character");
+                    }
+                }
+            }
+            return stack.Pop();
         }
 
         private bool stringIsOperator(string token)
@@ -71,7 +115,7 @@ namespace Rekenmachine
             string[] plusminus = new string[2];
             Array.Copy(OPERATORS, plusminus, 2);
 
-            if (plusminus.Contains(token)) 
+            if (plusminus.Contains(token))
             {
                 return true;
             }
@@ -85,7 +129,7 @@ namespace Rekenmachine
         {
             string[] multiplydivision = new string[2];
             Array.Copy(OPERATORS, 2, multiplydivision, 0, 2);
-            
+
             if (multiplydivision.Contains(token))
             {
                 return true;
@@ -98,7 +142,7 @@ namespace Rekenmachine
 
         private bool tokenIsOfGreaterPrecedence(string firstOp, string secondOp)
         {
-            if(tokenIsMultiplicationorDivision(firstOp) && tokenIsAdditionorSubtraction(secondOp))
+            if (tokenIsMultiplicationorDivision(firstOp) && tokenIsAdditionorSubtraction(secondOp))
             {
                 return true;
             }

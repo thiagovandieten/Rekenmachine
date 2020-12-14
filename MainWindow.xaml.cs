@@ -77,12 +77,15 @@ namespace Rekenmachine
         private void ButtonEquals_Click(object sender, RoutedEventArgs e)
         {
             Parser parser = new Parser();
-            parser.calculate(Display.Text);
+            Display.Text = parser.calculate(Display.Text).ToString();
         }
 
         private void ButtonBackspace_Click(object sender, RoutedEventArgs e)
         {
-            Display.Text = Display.Text.Remove(Display.Text.Count() - 1);
+            if(Display.Text.Count() > 0)
+            {
+                Display.Text = Display.Text.Remove(Display.Text.Count() - 1);
+            }
         }
     }
 }
