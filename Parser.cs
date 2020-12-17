@@ -12,7 +12,7 @@ namespace Rekenmachine
         public static readonly string[] OPERATORS = { "+", "-", "*", "/" };
 
         public String testString { get; set; }
-        public int calculate(string notation)
+        public decimal calculate(string notation)
         {
             Queue<string> postFix = convertToPostFix(notation);
             return parsePostFix(postFix);
@@ -26,7 +26,6 @@ namespace Rekenmachine
 
         private Queue<string> convertToPostFix(string notation)
         {
-            //char[] infix = notation.ToCharArray();
             String[] infix = Regex.Split(notation, @"([+\-*\/])");
 
             Queue<string> postfix = new Queue<string>();
@@ -45,7 +44,7 @@ namespace Rekenmachine
 
                     System.Diagnostics.Debug.WriteLine($"It's a {token}");
                 }
-                else if (int.TryParse(token, out int devnull))
+                else if (decimal.TryParse(token, out decimal devnull)) 
                 {
                     postfix.Enqueue(token);
                 }
@@ -58,15 +57,16 @@ namespace Rekenmachine
             return postfix;
         }
 
-        private int parsePostFix(Queue<string> postFix)
+        private decimal parsePostFix(Queue<string> postFix)
         {
-            Stack<int> stack = new Stack<int>();
-            int number = 0;
+            Stack<decimal> stack = new Stack<decimal>();
+            decimal number = Decimal.Zero;
+
             while (postFix.Count > 0)
             {
                 string token = postFix.Dequeue();
 
-                if (int.TryParse(token, out number))
+                if (decimal.TryParse(token, out number))
                 {
                     stack.Push(number);
                 }
