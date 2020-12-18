@@ -24,9 +24,25 @@ namespace Rekenmachine
             //System.Diagnostics.Debug.WriteLine(testString);
         }
 
+        public string convertPrecentageToDecimal(string notation)
+        {
+            string[] infix = splitNotation(notation);
+            int lastValue = infix.Count() - 1;
+            if(Decimal.TryParse(infix[lastValue], out decimal result))
+            {
+                result /= 100;
+                infix[lastValue] = result.ToString();
+            }
+            else
+            {
+                return notation;
+            }
+            return String.Join("", infix);
+        }
+
         private Queue<string> convertToPostFix(string notation)
         {
-            String[] infix = Regex.Split(notation, @"([+\-*\/])");
+            string[] infix = splitNotation(notation);
 
             Queue<string> postfix = new Queue<string>();
             Stack<string> operatorStack = new Stack<string>();
@@ -44,7 +60,7 @@ namespace Rekenmachine
 
                     System.Diagnostics.Debug.WriteLine($"It's a {token}");
                 }
-                else if (decimal.TryParse(token, out decimal devnull)) 
+                else if (decimal.TryParse(token, out decimal devnull))
                 {
                     postfix.Enqueue(token);
                 }
@@ -55,6 +71,11 @@ namespace Rekenmachine
                 postfix.Enqueue(operatorStack.Pop());
             }
             return postfix;
+        }
+
+        private static string[] splitNotation(string notation)
+        {
+            return Regex.Split(notation, @"([+\-*\/])");
         }
 
         private decimal parsePostFix(Queue<string> postFix)

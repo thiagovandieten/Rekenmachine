@@ -20,13 +20,13 @@ namespace Rekenmachine
     /// </summary>
     public partial class MainWindow : Window
     {
+        Parser parser = new Parser();
+
         public MainWindow()
         {
             InitializeComponent();
             bindNumberButtons();
             bindOperatorButtons();
-            //Parser parser = new Parser();
-            //parser.calculate();
         }
 
         private void bindNumberButtons()
@@ -41,6 +41,7 @@ namespace Rekenmachine
             Num7.Click += NumButton_Click;
             Num8.Click += NumButton_Click;
             Num9.Click += NumButton_Click;
+            NumDecimal.Click += NumButton_Click;
         }
 
         private void bindOperatorButtons() {
@@ -76,8 +77,8 @@ namespace Rekenmachine
 
         private void ButtonEquals_Click(object sender, RoutedEventArgs e)
         {
-            Parser parser = new Parser();
-            Display.Text = parser.calculate(Display.Text).ToString();
+            Answer.Text = parser.calculate(Display.Text).ToString();
+            Display.Text = "";
         }
 
         private void ButtonBackspace_Click(object sender, RoutedEventArgs e)
@@ -86,6 +87,11 @@ namespace Rekenmachine
             {
                 Display.Text = Display.Text.Remove(Display.Text.Count() - 1);
             }
+        }
+
+        private void ButtonPrecentage_Click(object sender, RoutedEventArgs e)
+        {
+            Display.Text = parser.convertPrecentageToDecimal(Display.Text);
         }
     }
 }
