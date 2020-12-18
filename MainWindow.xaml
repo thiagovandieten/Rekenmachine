@@ -24,7 +24,7 @@
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBox x:Name="Answer" Text="34" Grid.Column="0" HorizontalAlignment="Left" Height="40" Margin="5,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="353" Grid.ColumnSpan="2" TextAlignment="Right" FontSize="24" IsReadOnly="True"/>
+        <TextBox x:Name="Answer" Grid.Column="0" HorizontalAlignment="Left" Height="40" Margin="5,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="353" Grid.ColumnSpan="2" TextAlignment="Right" FontSize="24" IsReadOnly="True"/>
         <TextBox x:Name="Display" Grid.ColumnSpan="5" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Center" MinWidth="990" FontSize="48" Margin="5,0" IsReadOnly="True"/>
 
         <Button x:Name="Num7" Content="7" VerticalAlignment="Top" Grid.Row="1" Height="100" FontSize="62" Grid.Column="0" Margin="5"/>
@@ -37,13 +37,13 @@
         <Button x:Name="Num5" Content="5" VerticalAlignment="Top" Grid.Row="2" Height="100" FontSize="62" Grid.Column="1" Margin="5"/>
         <Button x:Name="Num6" Content="6" VerticalAlignment="Top" Grid.Row="2" Height="100" FontSize="62" Grid.Column="2" Margin="5"/>
         <Button x:Name="ButtonMultiply" Content="*" VerticalAlignment="Top" Grid.Row="2" Height="100" FontSize="62" Grid.Column="3" Margin="5"/>
-        <Button x:Name="ButtonEUtoUS" Content="€ > $" VerticalAlignment="Top" Grid.Row="2" Height="100" FontSize="62" Grid.Column="4" Margin="5"/>
+        <Button x:Name="ButtonEUtoUS" Content="€ > $" VerticalAlignment="Top" Grid.Row="2" Height="100" FontSize="62" Grid.Column="4" Margin="5" Click="ButtonEUtoUS_Click"/>
 
         <Button x:Name="Num1" Content="1" VerticalAlignment="Top" Grid.Row="3" Height="100" FontSize="62" Grid.Column="0" Margin="5"/>
         <Button x:Name="Num2" Content="2" VerticalAlignment="Top" Grid.Row="3" Height="100" FontSize="62" Grid.Column="1" Margin="5"/>
         <Button x:Name="Num3" Content="3" VerticalAlignment="Top" Grid.Row="3" Height="100" FontSize="62" Grid.Column="2" Margin="5"/>
         <Button x:Name="ButtonSubtraction" Content="-" VerticalAlignment="Top" Grid.Row="3" Height="100" FontSize="62" Grid.Column="3" Margin="5"/>
-        <Button x:Name="ButtonUStoEU" Content="$ > €" VerticalAlignment="Top" Grid.Row="3" Height="100" FontSize="62" Grid.Column="4" Margin="5"/>
+        <Button x:Name="ButtonUStoEU" Content="$ > €" VerticalAlignment="Top" Grid.Row="3" Height="100" FontSize="62" Grid.Column="4" Margin="5" Click="ButtonUStoEU_Click"/>
 
         <Button x:Name="NumDecimal" Content="," VerticalAlignment="Top" Grid.Row="4" Height="100" FontSize="62" Grid.Column="0" Margin="5"/>
         <Button x:Name="Num0" Content="0" VerticalAlignment="Top" Grid.Row="4" Height="100" FontSize="62" Grid.Column="1" Margin="5"/>

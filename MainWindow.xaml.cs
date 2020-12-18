@@ -93,5 +93,15 @@ namespace Rekenmachine
         {
             Display.Text = parser.convertPrecentageToDecimal(Display.Text);
         }
+
+        private void ButtonEUtoUS_Click(object sender, RoutedEventArgs e)
+        {
+            Answer.Text = parser.convertEUtoUS(Answer.Text);
+        }
+
+        private void ButtonUStoEU_Click(object sender, RoutedEventArgs e)
+        {
+            Answer.Text = parser.convertUStoEU(Answer.Text);
+        }
     }
 }

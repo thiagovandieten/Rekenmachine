@@ -122,6 +122,35 @@ namespace Rekenmachine
             return stack.Pop();
         }
 
+        public string convertEUtoUS(string euros)
+        {
+            decimal dollars = Decimal.Zero;
+
+            if (decimal.TryParse(euros, out dollars))
+            {
+                dollars *= 1.23m;
+                return dollars.ToString();
+            }
+            else
+            {
+                return euros;
+            }
+        }
+        public string convertUStoEU(string dollars)
+        {
+            decimal euros = Decimal.Zero;
+
+            if (decimal.TryParse(dollars, out euros))
+            {
+                euros *= 0.82m;
+                return euros.ToString();
+            }
+            else
+            {
+                return dollars;
+            }
+        }
+
         private bool stringIsOperator(string token)
         {
             //Vergelijk char met de ASCII waarde van de operaties *+-/ https://cs.smu.ca/~porter/csc/ref/asciifull.gif
